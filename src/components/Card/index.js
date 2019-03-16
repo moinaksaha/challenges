@@ -13,10 +13,18 @@ const CardImage = styled.div`
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center center;
+
+  @media (max-width: 500px) {
+    min-height: 200px;
+  }
 `;
 
 const CardWrapper = styled.div`
   flex: 0 50%;
+
+  @media (max-width: 767px) {
+    flex: 0 100%;
+  }
 `;
 
 const Container = styled.div`
@@ -45,8 +53,6 @@ const CharityName = styled.div`
   color: #5c606f;
   font-weight: 500;
 `;
-
-
 
 const PreviousDonationBreakdown = styled.div`
   font-size: 10px;

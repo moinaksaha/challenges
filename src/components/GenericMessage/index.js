@@ -19,7 +19,7 @@ class GenericMessage extends Component {
       switch (type) {
         case 'error':
           return {
-            main: 'palevioletred',
+            main: '#ff4646',
           }
         case 'success':
           return {

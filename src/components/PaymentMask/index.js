@@ -1,6 +1,6 @@
 // @flow
 import React, { Component } from 'react';
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { withRouter } from 'react-router-dom';
@@ -14,6 +14,15 @@ import loaderImage from '../../images/loader.gif';
 
 // import styles from './index.module.css'
 
+const fadeIn = keyframes`
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+`
+
 const Mask = styled.div`
   position: absolute;
   top: 0;
@@ -25,6 +34,12 @@ const Mask = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  animation: 0.3s ${fadeIn} ease-in;
+
+  & >p{
+    font-size: 16px;
+    color: #5c606f;
+  }
 
   & >div{
     padding: 5px;
@@ -37,6 +52,7 @@ const PaymentOptionHolder = styled.div`
   & >label{
     display: flex;
     padding: 5px;
+    color: #5c606f;
   }
 `;
 
@@ -49,12 +65,19 @@ const ClosePaymentButton = styled.div`
   cursor: pointer;
 `;
 
-const PaymentInProgress = styled.div`
+const PaymentHelpers = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
   font-size: 13px;
-  color: #00aeff;
+`;
+
+const ErrorHolder = styled.div`
+  font-size: 12px;
+  position: absolute;
+  bottom: 10px;
+  margin: 0px auto;
+  animation: 0.3s ${fadeIn} ease-in;
 `;
 
 class PaymentMask extends Component {
@@ -64,6 +87,7 @@ class PaymentMask extends Component {
     this.state = {
       selectedAmount: null,
       paymentInProgress: false,
+      showError: false,
     }
   }
 
@@ -86,6 +110,7 @@ class PaymentMask extends Component {
     this.setState({
       selectedAmount: null,
       paymentInProgress: false,
+      showError: false,
     })
   }
 
@@ -112,19 +137,22 @@ class PaymentMask extends Component {
         })
       } else {
         console.log('Please select an amount to donate');
+        this.setState({
+          showError: true,
+        })
       }
     }
 
     handlePaymentValueChange = (event) => {
-      debugger
       this.setState({
         selectedAmount: parseInt(event.target.value),
+        showError: false,
       })
     }
 
     render() {
       const { data, visible, paymentStatus } = this.props;
-      const { paymentInProgress, selectedAmount } = this.state;
+      const { paymentInProgress, selectedAmount, showError } = this.state;
 
       if (!visible) {
         return null;
@@ -146,13 +174,13 @@ class PaymentMask extends Component {
         if (paymentStatus.loading) {
           return (
             <Mask>
-              <PaymentInProgress>
+              <PaymentHelpers>
                 <img src={loaderImage} width={30} height={30} />
                 <GenericMessage 
                   message={'Processing Payment...'}
                   type={'inProgress'}
                 />
-              </PaymentInProgress>
+              </PaymentHelpers>
             </Mask>
           )
         } 
@@ -160,10 +188,12 @@ class PaymentMask extends Component {
         if (paymentStatus.error) {
           return (
             <Mask>
-              <GenericMessage 
-                message={'Something went wrong. Please try again!'}
-                type={'error'}
-              />
+              <PaymentHelpers>
+                <GenericMessage 
+                  message={'Something went wrong. Please try again!'}
+                  type={'error'}
+                />
+              </PaymentHelpers>
             </Mask>
           )
         }
@@ -171,10 +201,12 @@ class PaymentMask extends Component {
         if (paymentStatus.data) {
           return (
             <Mask>
-              <GenericMessage 
-                message={`Thanks for donating ${selectedAmount}`}
-                type={'success'}
-              />
+              <PaymentHelpers>
+                <GenericMessage 
+                  message={`Thanks for donating ${selectedAmount} ${data.currency}`}
+                  type={'success'}
+                />
+              </PaymentHelpers>
             </Mask>
           )
         }
@@ -185,13 +217,18 @@ class PaymentMask extends Component {
       return (
         <Mask>
           <ClosePaymentButton onClick={this.handleCloseButton}>X</ClosePaymentButton>
-          <div>{`Select the amount to donate (${data.currency})`}</div>
+          <p>{`Select the amount to donate (${data.currency})`}</p>
           <PaymentOptionHolder>
             {payments}
           </PaymentOptionHolder>
           <div onClick={this.initiatePayment}>
             <ButtonPrimary displayText={'Pay'} />
           </div>
+          {showError && 
+            <ErrorHolder>
+              <GenericMessage message={'Please select an amount to donate first.'} type={'error'} />
+            </ErrorHolder>
+          }
         </Mask>
       )
     }
