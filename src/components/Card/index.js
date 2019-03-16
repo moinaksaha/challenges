@@ -1,5 +1,5 @@
 // @flow
-import React, { Component, Fragment } from 'react';
+import React, { Component } from 'react';
 import styled from 'styled-components';
 
 import ButtonPrimary from '../ButtonPrimary';
@@ -60,7 +60,6 @@ const Mask = styled.div`
   }
 `;
 
-
 const PaymentOptionHolder = styled.div`
   display: flex;
 
@@ -101,7 +100,7 @@ class Card extends Component {
   }
 
   render() {
-    const { data } = this.props;
+    const { data, donations } = this.props;
     const { showPaymentButton } = this.state;
 
     const payments = [10, 20, 50, 100, 500].map((amount, j) => (
@@ -112,6 +111,10 @@ class Card extends Component {
         /> {amount}
       </label>
     ));
+
+    const previousDonations = donations.reduce((item) => {
+
+    })
 
     return (
       <CardWrapper>
@@ -130,7 +133,10 @@ class Card extends Component {
           }
           <CardImage img={`../images/${data.image}`}></CardImage>
           <TitleBar>
-            <CharityName>{`${data.name}`}</CharityName>
+            <div>
+              <CharityName>{`${data.name}`}</CharityName>
+            </div>
+            
             <div onClick={this.showPaymentScreen}>
               <ButtonPrimary displayText={'Donate'} key={'donatebutton'}/>
             </div>
