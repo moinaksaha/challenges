@@ -4,7 +4,7 @@ import {
   FETCH_ALL_DONATIONS_LOADING,
   FETCH_ALL_DONATIONS_SUCCESS,
   FETCH_ALL_DONATIONS_ERROR,
-} from '../constants/charities';
+} from '../constants/donations';
 
 const apiClient = createRestApiClient().withConfig({
   baseURL: 'http://localhost:3001',
