@@ -65,12 +65,11 @@ const ClosePaymentButton = styled.div`
   cursor: pointer;
 `;
 
-const PaymentInProgress = styled.div`
+const PaymentHelpers = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
   font-size: 13px;
-  color: #00aeff;
 `;
 
 const ErrorHolder = styled.div`
@@ -175,13 +174,13 @@ class PaymentMask extends Component {
         if (paymentStatus.loading) {
           return (
             <Mask>
-              <PaymentInProgress>
+              <PaymentHelpers>
                 <img src={loaderImage} width={30} height={30} />
                 <GenericMessage 
                   message={'Processing Payment...'}
                   type={'inProgress'}
                 />
-              </PaymentInProgress>
+              </PaymentHelpers>
             </Mask>
           )
         } 
@@ -189,10 +188,12 @@ class PaymentMask extends Component {
         if (paymentStatus.error) {
           return (
             <Mask>
-              <GenericMessage 
-                message={'Something went wrong. Please try again!'}
-                type={'error'}
-              />
+              <PaymentHelpers>
+                <GenericMessage 
+                  message={'Something went wrong. Please try again!'}
+                  type={'error'}
+                />
+              </PaymentHelpers>
             </Mask>
           )
         }
@@ -200,10 +201,12 @@ class PaymentMask extends Component {
         if (paymentStatus.data) {
           return (
             <Mask>
-              <GenericMessage 
-                message={`Thanks for donating ${selectedAmount}`}
-                type={'success'}
-              />
+              <PaymentHelpers>
+                <GenericMessage 
+                  message={`Thanks for donating ${selectedAmount} ${data.currency}`}
+                  type={'success'}
+                />
+              </PaymentHelpers>
             </Mask>
           )
         }
