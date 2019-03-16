@@ -5,6 +5,7 @@ import styled from 'styled-components';
 import { sumIndividualDonations } from '../../utils/helpers';
 
 import ButtonPrimary from '../ButtonPrimary';
+import PaymentMask from '../PaymentMask';
 
 const CardImage = styled.div`
   min-height: 250px;
@@ -45,40 +46,7 @@ const CharityName = styled.div`
   font-weight: 500;
 `;
 
-const Mask = styled.div`
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(255, 255, 255, 0.96);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
 
-  & >div{
-    padding: 5px;
-  }
-`;
-
-const PaymentOptionHolder = styled.div`
-  display: flex;
-
-  & >label{
-    display: flex;
-    padding: 5px;
-  }
-`;
-
-const ClosePaymentButton = styled.div`
-  position: absolute;
-  top: 20px;
-  right: 25px;
-  font-size: 12px;
-  font-weight: bold;
-  cursor: pointer;
-`;
 
 const PreviousDonationBreakdown = styled.div`
   font-size: 10px;
@@ -111,21 +79,26 @@ class Card extends Component {
     const { data, donations } = this.props;
     const { showPaymentButton } = this.state;
 
-    const payments = [10, 20, 50, 100, 500].map((amount, j) => (
-      <label key={j}>
-        <input
-          type="radio"
-          name="payment"
-        /> {amount}
-      </label>
-    ));
+    // const payments = [10, 20, 50, 100, 500].map((amount, j) => (
+    //   <label key={j}>
+    //     <input
+    //       type="radio"
+    //       name="payment"
+    //     /> {amount}
+    //   </label>
+    // ));
 
     const previousDonationsSummary = sumIndividualDonations(donations);
 
     return (
       <CardWrapper>
         <Container>
-          {showPaymentButton && 
+          <PaymentMask 
+            visible={showPaymentButton} 
+            data={data}
+            handleCloseButtonClick={this.hidePaymentScreen}
+          />
+          {/* {showPaymentButton && 
             <Mask>
               <ClosePaymentButton onClick={this.hidePaymentScreen}>X</ClosePaymentButton>
               <div>{`Select the amount to donate (${data.currency})`}</div>
@@ -136,7 +109,7 @@ class Card extends Component {
                 <ButtonPrimary displayText={'Pay'} key={'charitypaybutton'} />
               </div>
             </Mask>
-          }
+          } */}
           <CardImage img={`../images/${data.image}`}></CardImage>
           <TitleBar>
             <div>
