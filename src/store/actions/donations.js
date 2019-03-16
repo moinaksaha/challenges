@@ -7,6 +7,7 @@ import {
   MAKE_PAYMENT_LOADING,
   MAKE_PAYMENT_SUCCESS,
   MAKE_PAYMENT_ERROR,
+  CLEAR_PAYMENT_IN_PROGRESS_DATA,
 } from '../constants/donations';
 
 const apiClient = createRestApiClient().withConfig({
@@ -20,13 +21,20 @@ export function fetchAllDonations() {
   };
 }
 
-export function makePayment({id, amount, currency}) {
+export function makePayment({charitiesId, amount, currency, id}) {
   return {
     types: [ MAKE_PAYMENT_LOADING, MAKE_PAYMENT_SUCCESS, MAKE_PAYMENT_ERROR ],
-    promise: () => client.client.post('/payments', {
-      charitiesId: id, 
+    promise: () => apiClient.post('/payments', {
+      charitiesId, 
       amount, 
       currency,
+      id,
     }),
   };
+}
+
+export function clearPaymentInProgressData() {
+  return {
+    type : CLEAR_PAYMENT_IN_PROGRESS_DATA,
+  }
 }

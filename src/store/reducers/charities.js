@@ -39,7 +39,7 @@ export default function reducer( state=initialState, action = {}) {
         charities: {
           ...state.charities,
           loading: false,
-          data: action.result.data,
+          error: action.error,
         },
       };
     

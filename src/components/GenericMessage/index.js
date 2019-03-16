@@ -29,6 +29,10 @@ class GenericMessage extends Component {
           return {
             main: 'orange',
           }
+        case 'inProgress':
+          return {
+            main: '#00aeff',
+          }
         default:
           return {
             main: 'blue',

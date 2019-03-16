@@ -78,16 +78,6 @@ class Card extends Component {
   render() {
     const { data, donations } = this.props;
     const { showPaymentButton } = this.state;
-
-    // const payments = [10, 20, 50, 100, 500].map((amount, j) => (
-    //   <label key={j}>
-    //     <input
-    //       type="radio"
-    //       name="payment"
-    //     /> {amount}
-    //   </label>
-    // ));
-
     const previousDonationsSummary = sumIndividualDonations(donations);
 
     return (
@@ -98,18 +88,6 @@ class Card extends Component {
             data={data}
             handleCloseButtonClick={this.hidePaymentScreen}
           />
-          {/* {showPaymentButton && 
-            <Mask>
-              <ClosePaymentButton onClick={this.hidePaymentScreen}>X</ClosePaymentButton>
-              <div>{`Select the amount to donate (${data.currency})`}</div>
-              <PaymentOptionHolder>
-                {payments}
-              </PaymentOptionHolder>
-              <div>
-                <ButtonPrimary displayText={'Pay'} key={'charitypaybutton'} />
-              </div>
-            </Mask>
-          } */}
           <CardImage img={`../images/${data.image}`}></CardImage>
           <TitleBar>
             <div>
@@ -119,9 +97,7 @@ class Card extends Component {
                   {`${data.currency} ${previousDonationsSummary.amount}  (${previousDonationsSummary.breakdown})`} 
                 </PreviousDonationBreakdown>
               }
-              
             </div>
-            
             <div onClick={this.showPaymentScreen}>
               <ButtonPrimary displayText={'Donate'} key={'donatebutton'}/>
             </div>
