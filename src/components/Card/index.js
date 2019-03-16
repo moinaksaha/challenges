@@ -2,7 +2,10 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
 
+import { sumIndividualDonations } from '../../utils/helpers';
+
 import ButtonPrimary from '../ButtonPrimary';
+import PaymentMask from '../PaymentMask';
 
 const CardImage = styled.div`
   min-height: 250px;
@@ -43,39 +46,12 @@ const CharityName = styled.div`
   font-weight: 500;
 `;
 
-const Mask = styled.div`
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(255, 255, 255, 0.96);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
 
-  & >div{
-    padding: 5px;
-  }
-`;
 
-const PaymentOptionHolder = styled.div`
-  display: flex;
-
-  & >label{
-    display: flex;
-    padding: 5px;
-  }
-`;
-
-const ClosePaymentButton = styled.div`
-  position: absolute;
-  top: 20px;
-  right: 25px;
-  font-size: 12px;
-  font-weight: bold;
-  cursor: pointer;
+const PreviousDonationBreakdown = styled.div`
+  font-size: 10px;
+  padding: 5px 0;
+  color: #aaa;
 `;
 
 class Card extends Component {
@@ -102,41 +78,26 @@ class Card extends Component {
   render() {
     const { data, donations } = this.props;
     const { showPaymentButton } = this.state;
-
-    const payments = [10, 20, 50, 100, 500].map((amount, j) => (
-      <label key={j}>
-        <input
-          type="radio"
-          name="payment"
-        /> {amount}
-      </label>
-    ));
-
-    const previousDonations = donations.reduce((item) => {
-
-    })
+    const previousDonationsSummary = sumIndividualDonations(donations);
 
     return (
       <CardWrapper>
         <Container>
-          {showPaymentButton && 
-            <Mask>
-              <ClosePaymentButton onClick={this.hidePaymentScreen}>X</ClosePaymentButton>
-              <div>{`Select the amount to donate (${data.currency})`}</div>
-              <PaymentOptionHolder>
-                {payments}
-              </PaymentOptionHolder>
-              <div>
-                <ButtonPrimary displayText={'Pay'} key={'charitypaybutton'} />
-              </div>
-            </Mask>
-          }
+          <PaymentMask 
+            visible={showPaymentButton} 
+            data={data}
+            handleCloseButtonClick={this.hidePaymentScreen}
+          />
           <CardImage img={`../images/${data.image}`}></CardImage>
           <TitleBar>
             <div>
               <CharityName>{`${data.name}`}</CharityName>
+              {previousDonationsSummary && 
+                <PreviousDonationBreakdown>
+                  {`${data.currency} ${previousDonationsSummary.amount}  (${previousDonationsSummary.breakdown})`} 
+                </PreviousDonationBreakdown>
+              }
             </div>
-            
             <div onClick={this.showPaymentScreen}>
               <ButtonPrimary displayText={'Donate'} key={'donatebutton'}/>
             </div>
