@@ -2,6 +2,8 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
 
+import { sumIndividualDonations } from '../../utils/helpers';
+
 import ButtonPrimary from '../ButtonPrimary';
 
 const CardImage = styled.div`
@@ -78,6 +80,12 @@ const ClosePaymentButton = styled.div`
   cursor: pointer;
 `;
 
+const PreviousDonationBreakdown = styled.div`
+  font-size: 10px;
+  padding: 5px 0;
+  color: #aaa;
+`;
+
 class Card extends Component {
 
   constructor(props) {
@@ -112,9 +120,7 @@ class Card extends Component {
       </label>
     ));
 
-    const previousDonations = donations.reduce((item) => {
-
-    })
+    const previousDonationsSummary = sumIndividualDonations(donations);
 
     return (
       <CardWrapper>
@@ -135,6 +141,12 @@ class Card extends Component {
           <TitleBar>
             <div>
               <CharityName>{`${data.name}`}</CharityName>
+              {previousDonationsSummary && 
+                <PreviousDonationBreakdown>
+                  {`${data.currency} ${previousDonationsSummary.amount}  (${previousDonationsSummary.breakdown})`} 
+                </PreviousDonationBreakdown>
+              }
+              
             </div>
             
             <div onClick={this.showPaymentScreen}>

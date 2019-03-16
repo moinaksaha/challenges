@@ -11,6 +11,10 @@ const ButtonWrapper = styled.div`
   border-radius: 4px;
   cursor: pointer;
   transition: 0.3s;
+  min-width: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
   :hover{
       background: #648cf3;
