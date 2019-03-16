@@ -2,6 +2,13 @@
 import React, { Component } from 'react'
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import styled from 'styled-components';
+import { injectGlobal } from 'styled-components';
+
+injectGlobal`
+  body {
+    margin: 0;
+  }
+`
 
 const MainWrapper = styled.div`
   max-width: 1280px;

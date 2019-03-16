@@ -5,25 +5,23 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { withRouter } from 'react-router-dom';
 import styled from 'styled-components';
+import Sticky from 'react-stickynode';
 
 import { fetchAllCharities } from '../../store/actions/charities';
 import { fetchAllDonations } from '../../store/actions/donations';
 
+import { summaryDonationMultiCurrency } from '../../utils/helpers';
+
 import Card from '../Card';
+import Header from '../Header'
 
 
 const AllCharities = styled.div`
   display: flex;
   flex-wrap: wrap;
+  z-index: 1;
+  margin-top: 20px;
 `;
-
-const PageHeading = styled.div`
-  text-align: center;
-  font-size: 30px;
-  color: #5c606f;
-  padding: 40px 0;
-`;
-
 
 export class Donationpage extends Component {
   componentDidMount = () => {
@@ -40,9 +38,8 @@ export class Donationpage extends Component {
     return [];
   }
 
-
   render() {
-    const { allCharities } = this.props;
+    const { allCharities, allDonations } = this.props;
 
     if (allCharities.loading) {
       return <div>loading data</div>;
@@ -54,11 +51,24 @@ export class Donationpage extends Component {
     if (!allCharities || !allCharities.data || allCharities.data.length === 0) {
       return <div>No data to show</div>
     }
+
+    // Only works if all donations are made in the same currency
+    // Improved that logic
+
+    // const totalDonation = (allDonations && allDonations.data && allDonations.data.length !== 0) ?
+    //   summaryDonations(allDonations.data.map((item) => (item.amount))):
+    //   null;
+
+    const totalDonation = (allDonations && allDonations.data && allDonations.data.length !== 0) ?
+      summaryDonationMultiCurrency(allDonations.data):
+      null;
+
     return (
       <div>
-        <PageHeading>
-          Omise Tamboon React
-        </PageHeading>
+        <Sticky enabled={true} top={0} innerZ={9}>
+          <Header totalDonation={totalDonation}/>
+        </Sticky>
+
         <AllCharities>
           {allCharities.data.map((item) => {
             return (
@@ -74,8 +84,6 @@ export class Donationpage extends Component {
     );
   }
 };
-
-// export default Donationpage
 
 const mapStateToProps = state => {
   return {
