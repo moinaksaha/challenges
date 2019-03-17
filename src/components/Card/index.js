@@ -1,11 +1,13 @@
 // @flow
 import React, { Component } from 'react';
 import styled from 'styled-components';
+import loadable from '@loadable/component';
 
 import { sumIndividualDonations } from '../../utils/helpers';
 
 import ButtonPrimary from '../ButtonPrimary';
-import PaymentMask from '../PaymentMask';
+
+const PaymentMask = loadable(() => import('../PaymentMask'));
 
 const CardImage = styled.div`
   min-height: 250px;

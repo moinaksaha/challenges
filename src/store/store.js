@@ -1,13 +1,13 @@
 import { createStore, applyMiddleware, compose } from 'redux';
 import { connectRouter, routerMiddleware } from 'connected-react-router';
 import augmentorMiddleware from './middleware/augmentorMiddleware';
-import createHistory from 'history/createBrowserHistory';
+import { createBrowserHistory } from 'history';
 import rootReducer from './reducers';
 // import { persistStore, persistReducer } from "redux-persist";
 // import storage from "redux-persist/lib/storage"; // defaults to localStorage for web and AsyncStorage for react-native
 // import { root } from "postcss";
 
-export const history = createHistory();
+export const history = createBrowserHistory();
 
 const initialState = {};
 const enhancers = [];

@@ -24,7 +24,7 @@ const AllCharities = styled.div`
 `;
 
 export class Donationpage extends Component {
-  componentDidMount = () => {
+  componentDidMount() {
     const { fetchAllCharities, fetchAllDonations } = this.props;
     fetchAllCharities();
     fetchAllDonations();

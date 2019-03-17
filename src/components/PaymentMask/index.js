@@ -10,9 +10,12 @@ import GenericMessage from '../GenericMessage';
 
 import { makePayment, clearPaymentInProgressData } from '../../store/actions/donations';
 
-import loaderImage from '../../images/loader.gif';
+// import loaderImage from '../../images/loader.gif';
 
-// import styles from './index.module.css'
+
+import loadable from '@loadable/component';
+
+const loaderImage = loadable(() => import('../../images/loader.gif'));
 
 const fadeIn = keyframes`
   0% {
