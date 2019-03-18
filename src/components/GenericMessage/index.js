@@ -22,23 +22,19 @@ const getMessageTheme = (type) => {
       }
     case 'success':
       return {
-        main: 'green',
+        main: '#429845',
       }
     case 'warning':
       return {
-        main: 'orange',
+        main: '#FF9800',
       }
     case 'inProgress':
       return {
-        main: '#00aeff',
-      }
-    case 'primary':
-      return {
-        main: 'blue',
+        main: '#648cf3',
       }
     default:
       return {
-        main: 'blue',
+        main: '#429845',
       }
   }
 };
@@ -57,7 +53,7 @@ GenericMessage.propTypes = {
 };
 
 GenericMessage.defaultProps = {
-  type: 'primary',
+  type: 'success',
   message: 'Some Message',
 };
 

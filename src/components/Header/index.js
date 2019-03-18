@@ -7,22 +7,62 @@ import styled from 'styled-components';
 const HeaderWrapper = styled.div`
   padding: 40px 0 10px 0;
   background: #ffffff;
+  transition: 0.3s;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  @media (max-width: 500px) {
+    flex-direction: column !important;
+
+    ${({ stuck }) => stuck && `
+      padding: 10px;
+    `}
+  }
+
+  ${({ stuck }) => stuck && `
+    box-shadow: 0 1px 20px 0 rgba(0,0,0,.3);
+    flex-direction: row;
+    background: #648cf3;
+    padding: 15px;
+    justify-content: space-between;
+  `}
 `;
 
 const PageHeading = styled.div`
-  text-align: center;
   font-size: 30px;
   color: #5c606f;
+
+  ${({ stuck }) => stuck && `
+    font-size: 20px;
+    color: #ffffff;
+    font-weight: bold;
+  `}
 `;
 
 const TotalDonation = styled.div`
   text-align: center;
   padding: 10px 0;
-  font-size: 14px;
+  font-size: 18px;
   color: #648cf3;
+
+  @media (max-width: 767px) {
+    font-size: 16px;
+  }
+
+  @media (max-width: 500px) {
+    padding: 5px;
+    font-size: 12px !important;
+  }
+
+  ${({ stuck }) => stuck && `
+    font-size: 14px;
+    padding: 0;
+    color: #ffffff;
+  `}
 `;
 
-const Header = ({ totalDonation }) => {
+const Header = ({ totalDonation, isStuck }) => {
   if (totalDonation) {
     let totalDonationBreakup = '';
 
@@ -33,12 +73,12 @@ const Header = ({ totalDonation }) => {
     });
 
     return (
-      <HeaderWrapper>
-        <PageHeading>
+      <HeaderWrapper stuck={isStuck}>
+        <PageHeading stuck={isStuck}>
             Omise Tamboon React
         </PageHeading>
         {totalDonation &&
-          <TotalDonation>
+          <TotalDonation stuck={isStuck}>
             {`Total Donation Collected: ${totalDonationBreakup}`}
           </TotalDonation>
         }

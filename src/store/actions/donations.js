@@ -11,7 +11,7 @@ import {
 } from '../constants/donations';
 
 const apiClient = createRestApiClient().withConfig({
-  baseURL: 'http://localhost:3001',
+  baseURL: process.env.API_HOST,
 }).client;
 
 export function fetchAllDonations() {

@@ -16,6 +16,9 @@ import { summaryDonationMultiCurrency } from '../../utils/helpers';
 
 import Card from '../Card';
 import Header from '../Header';
+import GenericLoader from '../GenericLoader';
+import GenericError from '../GenericError';
+import GenericNoData from '../GenericNoData';
 // const Card = loadable(() => import('../Card'));
 // const Header = loadable(() => import('../Header'));
 
@@ -24,9 +27,17 @@ const AllCharities = styled.div`
   flex-wrap: wrap;
   z-index: 1;
   margin-top: 20px;
+  margin-bottom: 20px;
 `;
 
 export class DonationPage extends Component {
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      isHeaderSticky: false,
+    }
+  }
   componentDidMount() {
     const { fetchAllCharities, fetchAllDonations } = this.props;
     fetchAllCharities();
@@ -41,18 +52,25 @@ export class DonationPage extends Component {
     return [];
   }
 
+  handleStateChange = ({status}) => {
+    this.setState({
+      isHeaderSticky: (status === 2) ? true : false,
+    })
+  }
+
   render() {
     const { allCharities, allDonations } = this.props;
+    const { isHeaderSticky } = this.state;
 
     if (allCharities.loading) {
-      return <div>loading data</div>;
+      return <GenericLoader />;
     }
 
     if (allCharities.error) {
-      return <div>Error while loading</div>
+      return <GenericError />;
     }
     if (!allCharities || !allCharities.data || allCharities.data.length === 0) {
-      return <div>No data to show</div>
+      return <GenericNoData />
     }
 
     // Only works if all donations are made in the same currency
@@ -68,8 +86,8 @@ export class DonationPage extends Component {
 
     return (
       <div>
-        <Sticky enabled={true} top={0} innerZ={9}>
-          <Header totalDonation={totalDonation}/>
+        <Sticky enabled={true} top={0} innerZ={9} activeClass={'moinak'} onStateChange={this.handleStateChange}>
+          <Header totalDonation={totalDonation} isStuck={isHeaderSticky}/>
         </Sticky>
 
         <AllCharities>
