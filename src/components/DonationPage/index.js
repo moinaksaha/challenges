@@ -1,11 +1,13 @@
 // @flow
-import React, { Component } from 'react'
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { withRouter } from 'react-router-dom';
 import styled from 'styled-components';
 import Sticky from 'react-stickynode';
+// import loadable from '@loadable/component';
 
 import { fetchAllCharities } from '../../store/actions/charities';
 import { fetchAllDonations } from '../../store/actions/donations';
@@ -13,8 +15,9 @@ import { fetchAllDonations } from '../../store/actions/donations';
 import { summaryDonationMultiCurrency } from '../../utils/helpers';
 
 import Card from '../Card';
-import Header from '../Header'
-
+import Header from '../Header';
+// const Card = loadable(() => import('../Card'));
+// const Header = loadable(() => import('../Header'));
 
 const AllCharities = styled.div`
   display: flex;
@@ -23,7 +26,7 @@ const AllCharities = styled.div`
   margin-top: 20px;
 `;
 
-export class Donationpage extends Component {
+export class DonationPage extends Component {
   componentDidMount() {
     const { fetchAllCharities, fetchAllDonations } = this.props;
     fetchAllCharities();
@@ -85,6 +88,13 @@ export class Donationpage extends Component {
   }
 };
 
+DonationPage.propTypes = {
+  fetchAllCharities: PropTypes.func,
+  fetchAllDonations: PropTypes.func,
+  allCharities: PropTypes.object,
+  allDonations: PropTypes.object,
+};
+
 const mapStateToProps = state => {
   return {
     allCharities: state.charities.charities,
@@ -105,7 +115,7 @@ export default withRouter(
   connect(
     mapStateToProps,
     mapDispatchToProps
-  )(Donationpage)
+  )(DonationPage)
 );
 
 

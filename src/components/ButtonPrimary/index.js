@@ -1,6 +1,7 @@
 // @flow
-import React, { Component } from 'react'
+import React from 'react'
 import styled from 'styled-components';
+import PropTypes from 'prop-types';
 
 const ButtonWrapper = styled.div`
   padding: 5px 10px;
@@ -22,16 +23,20 @@ const ButtonWrapper = styled.div`
   }
 `;
 
-class ButtonPrimary extends Component {
-  render() {
-    return (
-      <ButtonWrapper>
-        {this.props.displayText}
-      </ButtonWrapper>
-    );
-  }
+const ButtonPrimary = ({ displayText }) => (
+  <ButtonWrapper>
+    {displayText}
+  </ButtonWrapper>
+)
+
+ButtonPrimary.propTypes = {
+  displayText: PropTypes.string,
 };
 
-export default ButtonPrimary
+ButtonPrimary.defaultProps = {
+  displayText: 'Button',
+};
+
+export default ButtonPrimary;
 
 

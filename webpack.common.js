@@ -1,5 +1,5 @@
 const path = require('path');
-// const CleanWebpackPlugin = require('clean-webpack-plugin');
+const CleanWebpackPlugin = require('clean-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 // const CURRENT_WORKING_DIR = process.cwd();
 
@@ -13,6 +13,7 @@ const config = {
   },
 
   plugins: [
+    new CleanWebpackPlugin(),
     new HtmlWebpackPlugin({
       template: 'public/index.html',
     }),
