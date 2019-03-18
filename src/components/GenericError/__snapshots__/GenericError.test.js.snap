@@ -1,0 +1,12 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Component: <Genericerror /> Snapshot: Enzyme 1`] = `
+<styled.div>
+  <h3>
+    Oops!
+  </h3>
+  <p>
+    Something went wrong, Please try again later
+  </p>
+</styled.div>
+`;

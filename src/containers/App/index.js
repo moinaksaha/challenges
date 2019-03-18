@@ -1,18 +1,23 @@
 // @flow
+
+// Necessary Imports
 import React, { Component } from 'react'
 import { BrowserRouter as Router, Route } from 'react-router-dom';
-import styled from 'styled-components';
-import { injectGlobal } from 'styled-components';
-// import loadable from '@loadable/component';
 
-// const DonationPage = loadable(() => import('../../components/DonationPage'));
+// Styled components Imports
+// Reference - https://github.com/styled-components/styled-components
+import styled, { injectGlobal }  from 'styled-components';
+
 import DonationPage from '../../components/DonationPage';
+// import loadable from '@loadable/component';
+// const DonationPage = loadable(() => import('../../components/DonationPage'));
 
 injectGlobal`
   body {
     margin: 0;
   }
 `
+// Styled Components
 const MainWrapper = styled.div`
   max-width: 1280px;
   margin: 0px auto;

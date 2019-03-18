@@ -1,8 +1,14 @@
 // @flow
+
+// Necessary Imports
 import React from 'react'
-import styled from 'styled-components';
 import PropTypes from 'prop-types';
 
+// Styled components Imports
+// Reference - https://github.com/styled-components/styled-components
+import styled from 'styled-components';
+
+// Styled Components
 const ButtonWrapper = styled.div`
   padding: 5px 10px;
   border: 2px solid #648cf3;
@@ -29,10 +35,12 @@ const ButtonPrimary = ({ displayText }) => (
   </ButtonWrapper>
 )
 
+// Proptype Validations
 ButtonPrimary.propTypes = {
   displayText: PropTypes.string,
 };
 
+// Default Props
 ButtonPrimary.defaultProps = {
   displayText: 'Button',
 };

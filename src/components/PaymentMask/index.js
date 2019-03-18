@@ -1,25 +1,30 @@
 // @flow
+
+// Necessary Imports
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-
-import styled, { keyframes } from 'styled-components';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { withRouter } from 'react-router-dom';
 
+// Styled components 
+// Reference - https://github.com/styled-components/styled-components
+import styled, { keyframes } from 'styled-components';
+
+// ActionCreators imports
 import { makePayment, clearPaymentInProgressData } from '../../store/actions/donations';
 
 // import loadable from '@loadable/component';
-
 // const loaderImage = loadable(() => import('../../images/loader.gif'));
-
 // const ButtonPrimary = loadable(() => import('../ButtonPrimary/index.js'));
 // const GenericMessage = loadable(() => import('../GenericMessage/index.js'));
 
+// Importing other components
 import ButtonPrimary from '../ButtonPrimary';
 import GenericMessage from '../GenericMessage';
 import loaderImage from '../../images/loader.gif';
 
+// Using Keyframes for animation
 const fadeIn = keyframes`
   0% {
     opacity: 0;
@@ -29,6 +34,7 @@ const fadeIn = keyframes`
   }
 `;
 
+// Styled Components
 const Mask = styled.div`
   position: absolute;
   top: 0;
@@ -52,6 +58,7 @@ const Mask = styled.div`
   }
 `;
 
+// Styled Components
 const PaymentOptionHolder = styled.div`
   display: flex;
 
@@ -62,6 +69,7 @@ const PaymentOptionHolder = styled.div`
   }
 `;
 
+// Styled Components
 const ClosePaymentButton = styled.div`
   position: absolute;
   top: 20px;
@@ -71,6 +79,7 @@ const ClosePaymentButton = styled.div`
   cursor: pointer;
 `;
 
+// Styled Components
 const PaymentHelpers = styled.div`
   display: flex;
   flex-direction: column;
@@ -78,6 +87,7 @@ const PaymentHelpers = styled.div`
   font-size: 13px;
 `;
 
+// Styled Components
 const ErrorHolder = styled.div`
   font-size: 12px;
   position: absolute;
@@ -90,6 +100,7 @@ class PaymentMask extends Component {
 
   constructor(props) {
     super(props);
+    // Initial state
     this.state = {
       selectedAmount: null,
       paymentInProgress: false,
@@ -97,6 +108,7 @@ class PaymentMask extends Component {
     }
   }
 
+  // Resets payment data when the paymentStatus.loading prop changes from true to false
   componentDidUpdate = prevProps => {
     if (prevProps.paymentStatus.loading === true && this.props.paymentStatus.loading === false) {
       setTimeout(() => {
@@ -105,6 +117,7 @@ class PaymentMask extends Component {
     }
   }
 
+  // Function to trigger close and reset of payment data
   clearPaymentData = () => {
     this.handleCloseButton();
     const { clearPaymentInProgressData } = this.props;
@@ -112,6 +125,7 @@ class PaymentMask extends Component {
     this.resetPaymentForm();
   }
 
+  // Actual function to clear form data
   resetPaymentForm = () => {
     this.setState({
       selectedAmount: null,
@@ -120,125 +134,137 @@ class PaymentMask extends Component {
     })
   }
 
-    handleCloseButton = () => {
-      this.resetPaymentForm();
-      const { handleCloseButtonClick } = this.props;
-      handleCloseButtonClick();
-    }
+  // Function to handle close button click
+  handleCloseButton = () => {
+    this.resetPaymentForm();
+    const { handleCloseButtonClick } = this.props;
+    handleCloseButtonClick();
+  }
 
-    initiatePayment = () => {
-      const { makePayment, data } = this.props;
-      const { selectedAmount } = this.state;
-      const uuidv1 = require('uuid/v1');
-      if (selectedAmount) {
-        this.setState({
-          paymentInProgress: true,
-        })
-        makePayment({
-          charitiesId: data.id, 
-          amount: selectedAmount, 
-          currency: data.currency,
-          id: uuidv1,
-        })
-      } else {
-        console.log('Please select an amount to donate');
-        this.setState({
-          showError: true,
-        })
-      }
-    }
-
-    handlePaymentValueChange = (event) => {
+  // Function to initiate Payment API call if payment amount is selected
+  // if nothing is selected - show appropriate error message
+  initiatePayment = () => {
+    const { makePayment, data } = this.props;
+    const { selectedAmount } = this.state;
+    const uuidv1 = require('uuid/v1');
+    if (selectedAmount) {
       this.setState({
-        selectedAmount: parseInt(event.target.value),
-        showError: false,
+        paymentInProgress: true,
+      })
+      makePayment({
+        charitiesId: data.id, 
+        amount: selectedAmount, 
+        currency: data.currency,
+        id: uuidv1,
+      })
+    } else {
+      this.setState({
+        showError: true,
       })
     }
+  }
 
-    render() {
-      const { data, visible, paymentStatus } = this.props;
-      const { paymentInProgress, selectedAmount, showError } = this.state;
+  // Update the selected payment amount on radio button selection
+  handlePaymentValueChange = (event) => {
+    this.setState({
+      selectedAmount: parseInt(event.target.value),
+      showError: false,
+    })
+  }
 
-      if (!visible) {
-        return null;
-      }
+  render() {
+    const { data, visible, paymentStatus } = this.props;
+    const { paymentInProgress, selectedAmount, showError } = this.state;
 
-      const payments = [10, 20, 50, 100, 500].map((amount, j) => (
-        <label key={j}>
-          <input
-            type="radio"
-            name="payment"
-            value={amount}
-            checked={this.state.selectedAmount === amount}
-            onChange={this.handlePaymentValueChange}
-          /> {amount}
-        </label>
-      ));
+    // return null if visible is false
+    if (!visible) {
+      return null;
+    }
 
-      if (paymentInProgress) {
-        if (paymentStatus.loading) {
-          return (
-            <Mask>
-              <PaymentHelpers>
-                <img src={loaderImage} width={30} height={30} />
-                <GenericMessage 
-                  message={'Processing Payment...'}
-                  type={'inProgress'}
-                />
-              </PaymentHelpers>
-            </Mask>
-          )
-        } 
+    // map through the available payments options for donation
+    const payments = [10, 20, 50, 100, 500].map((amount, j) => (
+      <label key={j}>
+        <input
+          type="radio"
+          name="payment"
+          value={amount}
+          checked={this.state.selectedAmount === amount}
+          onChange={this.handlePaymentValueChange}
+        /> {amount}
+      </label>
+    ));
+
+    // Only show this section when payment is in progress
+    // hides the payment options screen
+    if (paymentInProgress) {
+      // show loading if loading status is true
+      if (paymentStatus.loading) {
+        return (
+          <Mask>
+            <PaymentHelpers>
+              <img src={loaderImage} width={30} height={30} />
+              <GenericMessage 
+                message={'Processing Payment...'}
+                type={'inProgress'}
+              />
+            </PaymentHelpers>
+          </Mask>
+        )
+      } 
         
-        if (paymentStatus.error) {
-          return (
-            <Mask>
-              <PaymentHelpers>
-                <GenericMessage 
-                  message={'Something went wrong. Please try again!'}
-                  type={'error'}
-                />
-              </PaymentHelpers>
-            </Mask>
-          )
-        }
-
-        if (paymentStatus.data) {
-          return (
-            <Mask>
-              <PaymentHelpers>
-                <GenericMessage 
-                  message={`Thanks for donating ${selectedAmount} ${data.currency}`}
-                  type={'success'}
-                />
-              </PaymentHelpers>
-            </Mask>
-          )
-        }
-
-        return null;
+      // show error if error status thrown
+      if (paymentStatus.error) {
+        return (
+          <Mask>
+            <PaymentHelpers>
+              <GenericMessage 
+                message={'Something went wrong. Please try again!'}
+                type={'error'}
+              />
+            </PaymentHelpers>
+          </Mask>
+        )
       }
 
-      return (
-        <Mask>
-          <ClosePaymentButton onClick={this.handleCloseButton}>X</ClosePaymentButton>
-          <p>{`Select the amount to donate (${data.currency})`}</p>
-          <PaymentOptionHolder>
-            {payments}
-          </PaymentOptionHolder>
-          <div onClick={this.initiatePayment}>
-            <ButtonPrimary displayText={'Pay'} />
-          </div>
-          {showError && 
+      // Show thanks message when payment successful
+      if (paymentStatus.data) {
+        return (
+          <Mask>
+            <PaymentHelpers>
+              <GenericMessage 
+                message={`Thanks for donating ${selectedAmount} ${data.currency}`}
+                type={'success'}
+              />
+            </PaymentHelpers>
+          </Mask>
+        )
+      }
+
+      return null;
+    }
+
+    // Payment options holder
+    return (
+      <Mask>
+        <ClosePaymentButton onClick={this.handleCloseButton}>X</ClosePaymentButton>
+        <p>{`Select the amount to donate (${data.currency})`}</p>
+        <PaymentOptionHolder>
+          {payments}
+        </PaymentOptionHolder>
+        <div onClick={this.initiatePayment}>
+          <ButtonPrimary displayText={'Pay'} />
+        </div>
+        {showError && 
             <ErrorHolder>
               <GenericMessage message={'Please select an amount to donate first.'} type={'error'} />
             </ErrorHolder>
-          }
-        </Mask>
-      )
-    }
+        }
+      </Mask>
+    )
+  }
 };
 
+// Proptype Validations
 PaymentMask.propTypes = {
   makePayment: PropTypes.func.isRequired,
   clearPaymentInProgressData: PropTypes.func.isRequired,
@@ -253,6 +279,7 @@ PaymentMask.propTypes = {
   handleCloseButtonClick: PropTypes.func.isRequired,
 };
 
+// default props
 PaymentMask.defaultProps = {
   visible: false,
 };

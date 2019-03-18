@@ -1,0 +1,12 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Component: <Header /> Snapshot: Enzyme 1`] = `
+<styled.div>
+  <styled.div>
+    Omise Tamboon React
+  </styled.div>
+  <styled.div>
+    Total Donation Collected: 
+  </styled.div>
+</styled.div>
+`;

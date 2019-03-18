@@ -1,17 +1,25 @@
 // @flow
+
+// Necessary Imports
 import React, { Component } from 'react';
-import styled from 'styled-components';
-// import loadable from '@loadable/component';
 import PropTypes from 'prop-types';
 
+// Styled components Imports
+// Reference - https://github.com/styled-components/styled-components
+import styled from 'styled-components';
+
+// Helper functions 
 import { sumIndividualDonations } from '../../utils/helpers';
 
+// Importing other components
 import PaymentMask from '../PaymentMask';
 import ButtonPrimary from '../ButtonPrimary';
 
+// import loadable from '@loadable/component';
 // const PaymentMask = loadable(() => import('../PaymentMask'));
 // const ButtonPrimary = loadable(() => import('../ButtonPrimary'));
 
+// Styled Components
 const CardImage = styled.div`
   min-height: 250px;
   background-image: url(${props => props.img});
@@ -24,6 +32,7 @@ const CardImage = styled.div`
   }
 `;
 
+// Styled Components
 const CardWrapper = styled.div`
   flex: 0 50%;
 
@@ -32,6 +41,7 @@ const CardWrapper = styled.div`
   }
 `;
 
+// Styled Components
 const Container = styled.div`
   position: relative;
   margin: 20px;
@@ -47,6 +57,7 @@ const Container = styled.div`
   }
 `;
 
+// Styled Components
 const TitleBar = styled.div`
   padding: 20px;
   display: flex;
@@ -54,11 +65,13 @@ const TitleBar = styled.div`
   align-items: center;
 `;
 
+// Styled Components
 const CharityName = styled.div`
   color: #5c606f;
   font-weight: 500;
 `;
 
+// Styled Components
 const PreviousDonationBreakdown = styled.div`
   font-size: 10px;
   padding: 5px 0;
@@ -69,17 +82,20 @@ class Card extends Component {
 
   constructor(props) {
     super(props);
+    // Initial state
     this.state = {
       showPaymentButton: false,
     }
   }
 
+  // Function to change state for payment screen to be visible
   showPaymentScreen = () => {
     this.setState({
       showPaymentButton: true,
     })
   }
 
+  // Function to hide Payment screen 
   hidePaymentScreen = () => {
     this.setState({
       showPaymentButton: false,
@@ -119,11 +135,13 @@ class Card extends Component {
   }
 };
 
+// Proptype Validations
 Card.propTypes = {
   data: PropTypes.object,
   donations: PropTypes.array,
 };
 
+// Default props
 Card.defaultProps = {
   data: {
     currency:'NA',

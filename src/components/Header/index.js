@@ -1,9 +1,15 @@
 // @flow
+
+// Necessary Imports
 import React from 'react';
 import PropTypes from 'prop-types';
 
+// Styled components Imports
+// Reference - https://github.com/styled-components/styled-components
 import styled from 'styled-components';
 
+// Styled Components
+// Conditional rendering and media query
 const HeaderWrapper = styled.div`
   padding: 40px 0 10px 0;
   background: #ffffff;
@@ -29,6 +35,7 @@ const HeaderWrapper = styled.div`
   `}
 `;
 
+// Styled Components
 const PageHeading = styled.div`
   font-size: 30px;
   color: #5c606f;
@@ -40,6 +47,7 @@ const PageHeading = styled.div`
   `}
 `;
 
+// Styled Components
 const TotalDonation = styled.div`
   text-align: center;
   padding: 10px 0;
@@ -88,10 +96,12 @@ const Header = ({ totalDonation, isStuck }) => {
   return null;
 };
 
+// Proptype Validations
 Header.propTypes = {
   totalDonation: PropTypes.object,
 };
 
+// Default props
 Header.defaultProps = {
   totalDonation: {},
 };

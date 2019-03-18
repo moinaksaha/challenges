@@ -1,9 +1,14 @@
 // @flow
+
+// Necessary Imports
 import React from 'react';
 import PropTypes from 'prop-types';
 
+// Styled components 
+// Reference - https://github.com/styled-components/styled-components
 import styled, { ThemeProvider } from 'styled-components';
 
+// Styled Components
 const MessageWrapper = styled.div`
     color: ${props => props.theme.main};
 `;
@@ -14,6 +19,7 @@ MessageWrapper.defaultProps = {
   },
 };
 
+// Dynamically deciding the theme based on props
 const getMessageTheme = (type) => {
   switch (type) {
     case 'error':
@@ -47,11 +53,13 @@ const GenericMessage = ({ type, message }) => (
   </ThemeProvider>
 );
 
+// Proptype Validations
 GenericMessage.propTypes = {
   type: PropTypes.string,
   message: PropTypes.string.isRequired,
 };
 
+// Default Props
 GenericMessage.defaultProps = {
   type: 'success',
   message: 'Some Message',

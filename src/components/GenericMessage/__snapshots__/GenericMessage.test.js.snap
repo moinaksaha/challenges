@@ -1,0 +1,21 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Component: <GenericMessage /> Snapshot: Enzyme 1`] = `
+<ThemeProvider
+  theme={
+    Object {
+      "main": "#429845",
+    }
+  }
+>
+  <styled.div
+    theme={
+      Object {
+        "main": "blue",
+      }
+    }
+  >
+    Some Message
+  </styled.div>
+</ThemeProvider>
+`;

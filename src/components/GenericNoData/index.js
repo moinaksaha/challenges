@@ -1,7 +1,13 @@
 // @flow
+
+// Necessary Imports
 import React from 'react'
+
+// Styled components Imports
+// Reference - https://github.com/styled-components/styled-components
 import styled from 'styled-components';
 
+// Styled Components
 const NoDataDiv = styled.div`
     display flex;
     flex-direction: column;

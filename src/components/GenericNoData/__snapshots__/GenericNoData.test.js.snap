@@ -1,0 +1,12 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Component: <Genericnodata /> Snapshot: Enzyme 1`] = `
+<styled.div>
+  <h3>
+    Scary story!
+  </h3>
+  <p>
+    No data found to display
+  </p>
+</styled.div>
+`;

@@ -67,3 +67,75 @@ Please remember that your patch must consist of multiple separate commits. Your 
 If you notice more bugs in the original implementation you can add fixes for those as well. You won't be penalized if you don't. However we ask you not to add more features than the one given in the mission list.
 
 Let's rock! :metal:
+
+
+## How to run
+
+### Getting Started!
+
+#### Running in development mode
+
+Step 1 : Navigate to Project Root and create a .env at the root level. 
+```
+API_HOST='http://localhost'
+API_PORT=3001
+```
+Note : This is the default content of the .env file to listen to the the JSON-server(this is referred to in Step 3).
+
+Step 2 : Navigate to Project Root and Install all the dependencies and packages using yarn by following command.
+```
+yarn install
+```
+
+Step 3 : To run the API server(json-server) run following command.
+```
+yarn server
+```
+Note : By default the server will run on port 3001.
+
+Step 4 : To start the development server
+```
+yarn dev
+```
+Note : By default the server will run on port 3000.
+
+#### Production Build
+
+To create a production build, use the following (default folder: /build)
+```
+yarn build
+```
+
+### Run Test Suites Using Jest.
+
+Navigate to Project Root and Open Terminal there.
+
+Run Following Command to Run all the test suites and cases.
+```
+yarn test
+```
+
+Run Following Command to run test in watch mode(auto run tests when you save).
+```
+yarn test:watch
+```
+
+Run Following Command to test coverage.
+```
+yarn test:coverage
+```
+
+
+### Use Hygen Code Generator For Generating Components
+
+Step 1: Install Hygen Globally into your system using
+```
+yarn add global hygen
+```
+
+I have already designed a templates for making Dumb Components.
+
+Usage : To Create Dumb Component. Run
+```
+hygen dumb new --name MyComponent
+```

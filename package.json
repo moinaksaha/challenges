@@ -8,13 +8,12 @@
   "license": "MIT",
   "scripts": {
     "server": "json-server --watch db.json --port 3001",
-    "client": "webpack-dev-server",
-    "test": "jest",
-    "test:watch": "jest --watch",
-    "test:coverage": "jest --coverage --colors",
     "dev": "webpack-dev-server --config webpack.dev.js",
     "build": "webpack --config webpack.prod.js",
-    "flow": "flow"
+    "flow": "flow",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage --colors"
   },
   "dependencies": {
     "@loadable/component": "^5.7.0",

@@ -1,0 +1,41 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Component: <Card /> Snapshot: Enzyme 1`] = `
+<styled.div>
+  <styled.div>
+    <withRouter(Connect(PaymentMask))
+      data={
+        Object {
+          "currency": "NA",
+          "id": 0,
+          "image": undefined,
+          "name": "Donate",
+        }
+      }
+      handleCloseButtonClick={[Function]}
+      visible={false}
+    />
+    <styled.div
+      img="../images/undefined"
+    />
+    <styled.div>
+      <div>
+        <styled.div>
+          Donate
+        </styled.div>
+      </div>
+      <div
+        id="showPaymentScreenButton"
+        onClick={[Function]}
+      >
+        <ButtonPrimary
+          displayText="Donate"
+          key="donatebutton"
+        />
+      </div>
+    </styled.div>
+  </styled.div>
+</styled.div>
+`;
+
+exports[`Component: <Card /> Snapshot[With Mock Data]: Enzyme 1`] = `ShallowWrapper {}`;

@@ -62,7 +62,7 @@ export default function reducer( state=initialState, action = {}) {
       };
         
     case MAKE_PAYMENT_SUCCESS:
-
+      // update the all donation data on success payment response [updated the total donations data in the UI]
       const donationsData = state.donations.data;
       return {
         ...state,

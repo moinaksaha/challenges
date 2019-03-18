@@ -1,0 +1,14 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Component: <Genericloader /> Snapshot: Enzyme 1`] = `
+<styled.div>
+  <img
+    height={30}
+    src="loader.gif"
+    width={30}
+  />
+  <p>
+    Loading, please wait ...
+  </p>
+</styled.div>
+`;

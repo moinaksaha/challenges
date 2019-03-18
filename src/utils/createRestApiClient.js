@@ -1,3 +1,4 @@
+// Function to create an axios client from provided config
 import axios from 'axios';
 import { polyfill } from 'es6-promise';
 
