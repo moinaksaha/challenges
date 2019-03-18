@@ -27,6 +27,7 @@ const AllCharities = styled.div`
   flex-wrap: wrap;
   z-index: 1;
   margin-top: 20px;
+  margin-bottom: 20px;
 `;
 
 export class DonationPage extends Component {
