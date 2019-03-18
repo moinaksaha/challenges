@@ -62,7 +62,7 @@ const CharityName = styled.div`
 const PreviousDonationBreakdown = styled.div`
   font-size: 10px;
   padding: 5px 0;
-  color: #aaa;
+  color: #648cf3;
 `;
 
 class Card extends Component {

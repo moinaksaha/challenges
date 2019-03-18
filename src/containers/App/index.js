@@ -17,6 +17,9 @@ const MainWrapper = styled.div`
   max-width: 1280px;
   margin: 0px auto;
   font-family: 'Lato', sans-serif;
+  min-height: 100vh;
+  display: flex;
+  background: #ffffff;
 `
 export class App extends Component {
   render() {

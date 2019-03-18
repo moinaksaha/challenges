@@ -16,6 +16,9 @@ import { summaryDonationMultiCurrency } from '../../utils/helpers';
 
 import Card from '../Card';
 import Header from '../Header';
+import GenericLoader from '../GenericLoader';
+import GenericError from '../GenericError';
+import GenericNoData from '../GenericNoData';
 // const Card = loadable(() => import('../Card'));
 // const Header = loadable(() => import('../Header'));
 
@@ -45,14 +48,14 @@ export class DonationPage extends Component {
     const { allCharities, allDonations } = this.props;
 
     if (allCharities.loading) {
-      return <div>loading data</div>;
+      return <GenericLoader />;
     }
 
     if (allCharities.error) {
-      return <div>Error while loading</div>
+      return <GenericError />;
     }
     if (!allCharities || !allCharities.data || allCharities.data.length === 0) {
-      return <div>No data to show</div>
+      return <GenericNoData />
     }
 
     // Only works if all donations are made in the same currency
