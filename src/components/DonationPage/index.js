@@ -43,6 +43,8 @@ const AllCharities = styled.div`
   z-index: 1;
   margin-top: 20px;
   margin-bottom: 20px;
+  max-width: 1280px;
+  margin: 0px auto;
 `;
 
 export class DonationPage extends Component {
@@ -105,7 +107,7 @@ export class DonationPage extends Component {
       null;
 
     return (
-      <div>
+      <React.Fragment>
         <GlobalStyle />
         <Sticky enabled={true} top={0} innerZ={9} activeClass={'moinak'} onStateChange={this.handleStateChange}>
           <Header totalDonation={totalDonation} isStuck={isHeaderSticky}/>
@@ -122,7 +124,7 @@ export class DonationPage extends Component {
             )
           })}
         </AllCharities>
-      </div>
+      </React.Fragment>
     );
   }
 };

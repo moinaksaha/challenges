@@ -61,6 +61,10 @@ const TitleBar = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+
+  @media (max-width: 500px) {
+    padding: 15px;
+  }
 `;
 
 // Styled Components
