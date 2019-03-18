@@ -30,6 +30,13 @@ const AllCharities = styled.div`
 `;
 
 export class DonationPage extends Component {
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      isHeaderSticky: false,
+    }
+  }
   componentDidMount() {
     const { fetchAllCharities, fetchAllDonations } = this.props;
     fetchAllCharities();
@@ -44,8 +51,15 @@ export class DonationPage extends Component {
     return [];
   }
 
+  handleStateChange = ({status}) => {
+    this.setState({
+      isHeaderSticky: (status === 2) ? true : false,
+    })
+  }
+
   render() {
     const { allCharities, allDonations } = this.props;
+    const { isHeaderSticky } = this.state;
 
     if (allCharities.loading) {
       return <GenericLoader />;
@@ -71,8 +85,8 @@ export class DonationPage extends Component {
 
     return (
       <div>
-        <Sticky enabled={true} top={0} innerZ={9}>
-          <Header totalDonation={totalDonation}/>
+        <Sticky enabled={true} top={0} innerZ={9} activeClass={'moinak'} onStateChange={this.handleStateChange}>
+          <Header totalDonation={totalDonation} isStuck={isHeaderSticky}/>
         </Sticky>
 
         <AllCharities>
