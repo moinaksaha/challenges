@@ -3,9 +3,6 @@ import { connectRouter, routerMiddleware } from 'connected-react-router';
 import augmentorMiddleware from './middleware/augmentorMiddleware';
 import { createBrowserHistory } from 'history';
 import rootReducer from './reducers';
-// import { persistStore, persistReducer } from "redux-persist";
-// import storage from "redux-persist/lib/storage"; // defaults to localStorage for web and AsyncStorage for react-native
-// import { root } from "postcss";
 
 export const history = createBrowserHistory();
 
@@ -34,16 +31,3 @@ export const store = createStore(
   initialState,
   composedEnhancers
 );
-
-// enabling hot module replacement
-// if (module.hot) {
-//   module.hot.accept(() => {
-//     // This fetch the new state of the above reducers.
-//     const nextRootReducer = require("./reducers");
-//     store.replaceReducer(
-//       //persistReducer(persistConfig, connectRouter(history)(nextRootReducer))
-//       connectRouter(history)(nextRootReducer)
-//     );
-//   });
-// }
-// export const persistor = persistStore(store);

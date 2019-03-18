@@ -1,5 +1,3 @@
-// @flow
-
 // Necessary Imports
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
@@ -9,7 +7,7 @@ import { withRouter } from 'react-router-dom';
 
 // Styled components 
 // Reference - https://github.com/styled-components/styled-components
-import styled from 'styled-components';
+import styled, { createGlobalStyle } from 'styled-components';
 
 // React stickynode
 // Reference - https://github.com/yahoo/react-stickynode
@@ -32,6 +30,12 @@ import GenericNoData from '../GenericNoData';
 // const Card = loadable(() => import('../Card'));
 // const Header = loadable(() => import('../Header'));
 
+// Global Style
+const GlobalStyle = createGlobalStyle`
+  body {
+    margin: 0;
+  }
+`
 // Styled Components
 const AllCharities = styled.div`
   display: flex;
@@ -102,6 +106,7 @@ export class DonationPage extends Component {
 
     return (
       <div>
+        <GlobalStyle />
         <Sticky enabled={true} top={0} innerZ={9} activeClass={'moinak'} onStateChange={this.handleStateChange}>
           <Header totalDonation={totalDonation} isStuck={isHeaderSticky}/>
         </Sticky>

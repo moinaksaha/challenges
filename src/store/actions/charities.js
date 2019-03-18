@@ -10,7 +10,7 @@ import {
 
 // Creating an API client from axios
 const apiClient = createRestApiClient().withConfig({
-  baseURL: process.env.API_HOST + process.env.API_PORT,
+  baseURL: process.env.API_HOST + ':' +process.env.API_PORT,
 }).client;
 
 // Action Creator for fetching all Charities
