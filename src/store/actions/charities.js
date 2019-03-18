@@ -7,7 +7,7 @@ import {
 } from '../constants/charities';
 
 const apiClient = createRestApiClient().withConfig({
-  baseURL: 'http://localhost:3001',
+  baseURL: process.env.API_HOST,
 }).client;
 
 export function fetchAllCharities() {

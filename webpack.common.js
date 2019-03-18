@@ -1,11 +1,11 @@
 const path = require('path');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const Dotenv = require('dotenv-webpack');
 // const CURRENT_WORKING_DIR = process.cwd();
 
 const config = {
   entry: './src/index.js',
-  
   output: {
     filename: '[name].js',
     path: path.resolve(__dirname, 'build'),
@@ -13,6 +13,7 @@ const config = {
   },
 
   plugins: [
+    new Dotenv(),
     new CleanWebpackPlugin(),
     new HtmlWebpackPlugin({
       template: 'public/index.html',
