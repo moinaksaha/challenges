@@ -18,17 +18,15 @@ const HeaderWrapper = styled.div`
     ${({ stuck }) => stuck && `
       padding: 10px;
     `}
-
   }
 
   ${({ stuck }) => stuck && `
+    box-shadow: 0 1px 20px 0 rgba(0,0,0,.3);
     flex-direction: row;
     background: #648cf3;
     padding: 15px;
     justify-content: space-between;
   `}
-
-  
 `;
 
 const PageHeading = styled.div`
@@ -45,15 +43,20 @@ const PageHeading = styled.div`
 const TotalDonation = styled.div`
   text-align: center;
   padding: 10px 0;
-  font-size: 14px;
+  font-size: 18px;
   color: #648cf3;
+
+  @media (max-width: 767px) {
+    font-size: 16px;
+  }
 
   @media (max-width: 500px) {
     padding: 5px;
-    font-size: 12px;
+    font-size: 12px !important;
   }
 
   ${({ stuck }) => stuck && `
+    font-size: 14px;
     padding: 0;
     color: #ffffff;
   `}
