@@ -30,6 +30,9 @@ import GenericNoData from '../GenericNoData';
 // const Card = loadable(() => import('../Card'));
 // const Header = loadable(() => import('../Header'));
 
+// lodash throttle to limit max number of calls to sticky header UI implementation
+const throttle = require('lodash.throttle');
+
 // Global Style
 const GlobalStyle = createGlobalStyle`
   body {
@@ -109,7 +112,7 @@ export class DonationPage extends Component {
     return (
       <React.Fragment>
         <GlobalStyle />
-        <Sticky enabled={true} top={0} innerZ={9} activeClass={'moinak'} onStateChange={this.handleStateChange}>
+        <Sticky enabled={true} top={0} innerZ={9} activeClass={'moinak'} onStateChange={throttle(this.handleStateChange, 100)}>
           <Header totalDonation={totalDonation} isStuck={isHeaderSticky}/>
         </Sticky>
 
