@@ -1,13 +1,16 @@
 // @flow
 import React, { Component } from 'react';
 import styled from 'styled-components';
-import loadable from '@loadable/component';
+// import loadable from '@loadable/component';
+import PropTypes from 'prop-types';
 
 import { sumIndividualDonations } from '../../utils/helpers';
 
+import PaymentMask from '../PaymentMask';
 import ButtonPrimary from '../ButtonPrimary';
 
-const PaymentMask = loadable(() => import('../PaymentMask'));
+// const PaymentMask = loadable(() => import('../PaymentMask'));
+// const ButtonPrimary = loadable(() => import('../ButtonPrimary'));
 
 const CardImage = styled.div`
   min-height: 250px;
@@ -106,7 +109,7 @@ class Card extends Component {
                 </PreviousDonationBreakdown>
               }
             </div>
-            <div onClick={this.showPaymentScreen}>
+            <div id='showPaymentScreenButton' onClick={this.showPaymentScreen}>
               <ButtonPrimary displayText={'Donate'} key={'donatebutton'}/>
             </div>
           </TitleBar>
@@ -116,5 +119,20 @@ class Card extends Component {
   }
 };
 
-export default Card
+Card.propTypes = {
+  data: PropTypes.object,
+  donations: PropTypes.array,
+};
+
+Card.defaultProps = {
+  data: {
+    currency:'NA',
+    id:0,
+    image: undefined,
+    name:'Donate',
+  },
+  donations: [],
+};
+
+export default Card;
 

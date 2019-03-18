@@ -1,5 +1,7 @@
 // @flow
-import React, { Component } from 'react'
+import React from 'react';
+import PropTypes from 'prop-types';
+
 import styled from 'styled-components';
 
 const HeaderWrapper = styled.div`
@@ -20,21 +22,20 @@ const TotalDonation = styled.div`
   color: #648cf3;
 `;
 
-class Header extends Component {
-  render() {
-    const { totalDonation } = this.props;
+const Header = ({ totalDonation }) => {
+  if (totalDonation) {
     let totalDonationBreakup = '';
-    if (totalDonation) {
-      Object.keys(totalDonation).forEach(function(key,index) {
-        totalDonationBreakup = (index > 0) ?
-          `${totalDonationBreakup}, ${totalDonation[key]} ${key}`:
-          `${totalDonation[key]} ${key}`
-      });
-    }
+
+    Object.keys(totalDonation).forEach(function(key,index) {
+      totalDonationBreakup = (index > 0) ?
+        `${totalDonationBreakup}, ${totalDonation[key]} ${key}`:
+        `${totalDonation[key]} ${key}`
+    });
+
     return (
       <HeaderWrapper>
         <PageHeading>
-          Omise Tamboon React
+            Omise Tamboon React
         </PageHeading>
         {totalDonation &&
           <TotalDonation>
@@ -42,11 +43,19 @@ class Header extends Component {
           </TotalDonation>
         }
       </HeaderWrapper>
-      
     );
   }
+  return null;
 };
 
-export default Header
+Header.propTypes = {
+  totalDonation: PropTypes.object,
+};
+
+Header.defaultProps = {
+  totalDonation: {},
+};
+
+export default Header;
 
 

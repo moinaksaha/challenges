@@ -1,9 +1,18 @@
 import React from 'react'
-import renderer from 'react-test-renderer'
-import Genericmessage from './index.js'
+import GenericMessage from './index.js'
+import { shallow } from 'enzyme';
+import toJson from 'enzyme-to-json';
 
-it('Genericmessage: default', () => {
-  const component = renderer.create(<Genericmessage />)
-  const tree = component.toJSON()
-  expect(tree).toMatchSnapshot()
+describe('Component: <GenericMessage />', () => {
+
+  test('Render Status: Success', () => {
+    const wrapper = shallow(<GenericMessage />);
+    expect(wrapper.exists()).toBe(true);
+  })
+
+  test('Snapshot: Enzyme', () => {
+    const tree = shallow(<GenericMessage />)
+    expect(toJson(tree)).toMatchSnapshot()
+  })
+  
 })

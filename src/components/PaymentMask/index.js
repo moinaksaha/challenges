@@ -1,21 +1,24 @@
 // @flow
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+
 import styled, { keyframes } from 'styled-components';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { withRouter } from 'react-router-dom';
 
-import ButtonPrimary from '../ButtonPrimary';
-import GenericMessage from '../GenericMessage';
-
 import { makePayment, clearPaymentInProgressData } from '../../store/actions/donations';
 
-// import loaderImage from '../../images/loader.gif';
+// import loadable from '@loadable/component';
 
+// const loaderImage = loadable(() => import('../../images/loader.gif'));
 
-import loadable from '@loadable/component';
+// const ButtonPrimary = loadable(() => import('../ButtonPrimary/index.js'));
+// const GenericMessage = loadable(() => import('../GenericMessage/index.js'));
 
-const loaderImage = loadable(() => import('../../images/loader.gif'));
+import ButtonPrimary from '../ButtonPrimary';
+import GenericMessage from '../GenericMessage';
+import loaderImage from '../../images/loader.gif';
 
 const fadeIn = keyframes`
   0% {
@@ -24,7 +27,7 @@ const fadeIn = keyframes`
   100% {
     opacity: 1;
   }
-`
+`;
 
 const Mask = styled.div`
   position: absolute;
@@ -127,7 +130,6 @@ class PaymentMask extends Component {
       const { makePayment, data } = this.props;
       const { selectedAmount } = this.state;
       const uuidv1 = require('uuid/v1');
-      // debugger
       if (selectedAmount) {
         this.setState({
           paymentInProgress: true,
@@ -235,6 +237,24 @@ class PaymentMask extends Component {
         </Mask>
       )
     }
+};
+
+PaymentMask.propTypes = {
+  makePayment: PropTypes.func.isRequired,
+  clearPaymentInProgressData: PropTypes.func.isRequired,
+  paymentStatus: PropTypes.object.isRequired,
+  data: PropTypes.shape({
+    currency: PropTypes.string.isRequired,
+    image: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired,
+    id: PropTypes.number.isRequired,
+  }), 
+  visible: PropTypes.bool,
+  handleCloseButtonClick: PropTypes.func.isRequired,
+};
+
+PaymentMask.defaultProps = {
+  visible: false,
 };
 
 const mapStateToProps = state => {
